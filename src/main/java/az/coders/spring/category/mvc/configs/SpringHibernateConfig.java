@@ -10,6 +10,7 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import javax.sql.DataSource;
 import java.util.Properties;
@@ -23,18 +24,19 @@ public class SpringHibernateConfig {
     Environment environment;
 
     @Bean
-    public DataSource dataSource() {
+    public DataSource dataSource() throws ClassNotFoundException {
         String url = environment.getProperty("datasource.url");
         String username = environment.getProperty("datasource.username");
         String password = environment.getProperty("datasource.password");
         System.out.println("url: " + url);
         System.out.println("username: " + username);
         System.out.println("password: " + password);
+        Class.forName("org.postgresql.Driver");
         return new DriverManagerDataSource(url, username, password);
     }
 
     @Bean
-    LocalSessionFactoryBean sessionFactory() {
+    LocalSessionFactoryBean sessionFactory() throws ClassNotFoundException {
         LocalSessionFactoryBean sessionFactoryBean = new LocalSessionFactoryBean();
         sessionFactoryBean.setDataSource(dataSource());
         sessionFactoryBean.setPackagesToScan("az.coders.spring.category.mvc.domains");
@@ -47,9 +49,17 @@ public class SpringHibernateConfig {
     }
 
     @Bean
-    public HibernateTransactionManager transactionManager() {
+    public HibernateTransactionManager transactionManager() throws ClassNotFoundException {
         HibernateTransactionManager hibernateTransactionManager = new HibernateTransactionManager();
         hibernateTransactionManager.setSessionFactory(sessionFactory().getObject());
         return hibernateTransactionManager;
     }
+
+//    @Bean
+//    public InternalResourceViewResolver viewResolver() {
+//        InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
+//        viewResolver.setPrefix("/WEB-INF/views/");
+//        viewResolver.setSuffix(".jsp");
+//        return viewResolver;
+//    }
 }
