@@ -49,13 +49,26 @@ public class CategoryController {
 
     @PostMapping("/create")
     public String createCategory(@ModelAttribute Category category) {
-        System.out.println("category = " + category);
         categoryService.save(category);
         return "redirect:/categories";
     }
     @GetMapping("/create")
     public String createCategoryView() {
         return "categoryCreate";
+    }
+
+    @GetMapping("/update/{id}")
+    public String updateCategoryView(@PathVariable Integer id, Model model) {
+        Category category = categoryService.findById(id);
+        model.addAttribute("category", category);
+        return "categoryUpdate";
+    }
+
+    @PostMapping("/update/{id}")
+    public String createCategory(@PathVariable Integer id, @ModelAttribute Category category) {
+        System.out.println("category: " + category);
+        categoryService.update(category);
+        return "redirect:/categories";
     }
 
 

@@ -17,7 +17,7 @@ import java.util.Properties;
 
 @Configuration
 @ComponentScan("az.coders.spring.category.mvc")
-@PropertySource("classpath:database.properties")
+@PropertySource(value = "classpath:database.yaml", factory = YamlPropertySourceFactory.class)
 @EnableTransactionManagement
 public class SpringHibernateConfig {
     @Autowired
@@ -55,11 +55,11 @@ public class SpringHibernateConfig {
         return hibernateTransactionManager;
     }
 
-//    @Bean
-//    public InternalResourceViewResolver viewResolver() {
-//        InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
-//        viewResolver.setPrefix("/WEB-INF/views/");
-//        viewResolver.setSuffix(".jsp");
-//        return viewResolver;
-//    }
+    @Bean
+    public InternalResourceViewResolver viewResolver() {
+        InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
+        viewResolver.setPrefix("/WEB-INF/views/");
+        viewResolver.setSuffix(".jsp");
+        return viewResolver;
+    }
 }

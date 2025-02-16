@@ -13,11 +13,11 @@
     <title>Add category</title>
 </head>
 <body>
-<form action="http://localhost:8080/category_mvc_war/categories/create" method="post">
+<form action="http://localhost:8080/category_mvc_war/categories/update/${category.id}" method="post">
     <label>Name: </label>
-    <input type="text" name="name"> <br/>
+    <input type="text" name="name" value="${category.name}"> <br/>
     <label>Description: </label>
-    <input type="text" name="description"> <br/>
+    <input type="text" name="description"  value="${category.description}"> <br/>
     <input type="submit" name="add" value="Add">
 </form>
 </body>

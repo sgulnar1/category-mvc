@@ -18,7 +18,7 @@
     <input type="text" name="name" placeholder="Search name">
     <input type="submit" name="search" value="Search">
 </form>
-<form action="categories/create" method="get">
+<form action="http://localhost:8080/category_mvc_war/categories/create" method="get">
     <input type="submit" name="create" value="New">
 </form>
 <table style="border: 1px">
@@ -41,7 +41,11 @@
             <td>${category.id}</td>
             <td>${category.name}</td>
             <td>${category.description}</td>
-            <td><input type="submit" name="edit" value="Edit"></td>
+            <td>
+                <form action="http://localhost:8080/category_mvc_war/categories/update/${category.id}" method="get">
+                    <input type="submit" name="edit" value="Edit">
+                </form>
+            </td>
             <td>
                 <form action="categories/delete/${category.id}" method="post">
                     <input type="submit" name="delete" value="Delete">
